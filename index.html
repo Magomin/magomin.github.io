@@ -1,54 +1,446 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Capturez Plus de Leads</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Matthieu Dominguez — Business × Tech Builder</title>
+<meta name="description" content="Matthieu Dominguez — Business × Tech Builder. I set up the outbound, automate the boring parts and build the product that take companies from nothing to their first paying clients.">
+<link rel="stylesheet" href="styles.css">
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<noscript><style>.reveal{opacity:1!important;transform:none!important}</style></noscript>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <div class="logo">
-                <img src="assets/logo-magic-lead.webp" alt="Magic Leads Logo">
-            </div>
-            <h1>Augmentez Vos Ventes</h1>
-            <p class="subtitle">Obtenez plus de clients qualifiés dès aujourd'hui</p>
-        </header>
 
-        <main>
-            <div class="benefits">
-                <div class="benefit-card">
-                    <i class="icon">📈</i>
-                    <h3>Plus de Leads</h3>
-                    <p>Augmentez votre base de prospects de 300%</p>
-                </div>
-                <div class="benefit-card">
-                    <i class="icon">🎯</i>
-                    <h3>Ciblage Précis</h3>
-                    <p>Atteignez exactement votre audience idéale</p>
-                </div>
-                <div class="benefit-card">
-                    <i class="icon">💰</i>
-                    <h3>ROI Garanti</h3>
-                    <p>Optimisez votre retour sur investissement</p>
-                </div>
-            </div>
+<a class="skip-link visually-hidden" href="#main">Skip to content</a>
 
-            <form id="leadForm" class="lead-form">
-                <h2>Commencez Maintenant</h2>
-                <input type="text" id="name" placeholder="Votre nom" required>
-                <input type="email" id="email" placeholder="Votre email" required>
-                <input type="tel" id="phone" placeholder="Votre téléphone" required>
-                <button type="submit">Obtenir Ma Consultation Gratuite</button>
-            </form>
-
-            <div id="confirmation" class="confirmation hidden">
-                <h3>Merci !</h3>
-                <p>Nous vous contacterons bientôt.</p>
-            </div>
-        </main>
+<!-- NavBar -->
+<nav class="nav" aria-label="Primary">
+  <div class="nav-inner">
+    <a href="#top" class="nav-brand">Matthieu D.</a>
+    <div class="nav-center" id="nav-center">
+      <a class="nav-link" href="#about">About</a>
+      <a class="nav-link" href="#work">Work</a>
+      <a class="nav-link" href="#projects">Projects</a>
+      <a class="nav-link" href="#contact">Contact</a>
     </div>
-    <script src="script.js"></script>
+    <a class="btn btn--primary btn--sm nav-cta btn--grain" href="#contact"><span class="btn-shader" aria-hidden="true"></span><span class="btn-label">Get in touch</span></a>
+    <button class="nav-toggle" type="button" aria-label="Menu" aria-expanded="false" aria-controls="nav-center">
+      <span class="nav-toggle-bar" aria-hidden="true"></span>
+      <span class="nav-toggle-bar" aria-hidden="true"></span>
+      <span class="nav-toggle-bar" aria-hidden="true"></span>
+    </button>
+  </div>
+</nav>
+
+<main id="main" tabindex="-1">
+  <!-- Hero -->
+  <header id="top" class="hero">
+    <div class="hero-aurora" aria-hidden="true"></div>
+
+    <div class="hero-inner">
+      <span class="hero-badge"><span class="pulse" aria-hidden="true"></span>Available for select work · Madrid / Remote</span>
+      <h1>Turning zero<br>into one</h1>
+      <p class="hero-sub">Business × tech builder. I set up the outbound, automate the boring parts and build the product — learning whatever it takes to get a company from nothing to its first clients.</p>
+      <div class="hero-cta">
+        <a class="btn btn--primary btn--lg btn--grain" href="#contact"><span class="btn-shader" aria-hidden="true"></span><span class="btn-label">Get in touch</span></a>
+        <a class="btn btn--ghost btn--lg" href="#projects">See my work <i data-lucide="arrow-down"></i></a>
+      </div>
+    </div>
+
+    <div class="hero-stats">
+      <div class="stat-grid reveal">
+        <div class="stat-cell">
+          <div class="stat-value gradient">0&thinsp;&rarr;&thinsp;1</div>
+          <div class="stat-label">My best work happens where nothing exists yet</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-value stat-value--word">Growth mindset</div>
+          <div class="stat-label">Love to learn, always onto the next thing</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-value stat-value--word">Business&nbsp;&times;&nbsp;tech</div>
+          <div class="stat-label">I translate between the people who sell and the people who build</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-value stat-value--word">Many hats</div>
+          <div class="stat-label">Design, sales, AI, product</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- About -->
+  <section id="about" class="section">
+    <div class="container">
+      <div class="about-grid">
+        <div>
+          <div class="section-heading reveal">
+            <span class="eyebrow">About</span>
+            <h2>Business × tech.<br>Comfortable at the&nbsp;zero.</h2>
+          </div>
+          <p class="about-summary reveal">At Fribl I set up the entire outbound function — from 0 to the first paying accounts, including EDHEC — and built an internal prospecting platform end-to-end in about two months. Earlier I generated €350k+ in pipeline across France, Spain and the UK. I sit at the seam between growth, automation and product, and I like the messy part: the zero.</p>
+
+          <div class="lang-block reveal">
+            <div class="mono-label">Languages</div>
+            <div class="lang-row">
+              <div class="lang-head"><span class="lang-name">French</span><span class="lang-level">Native</span></div>
+              <div class="lang-bar"><div class="lang-fill" style="--w:100%"></div></div>
+            </div>
+            <div class="lang-row">
+              <div class="lang-head"><span class="lang-name">Spanish</span><span class="lang-level">Bilingual</span></div>
+              <div class="lang-bar"><div class="lang-fill" style="--w:95%"></div></div>
+            </div>
+            <div class="lang-row">
+              <div class="lang-head"><span class="lang-name">English</span><span class="lang-level">C1</span></div>
+              <div class="lang-bar"><div class="lang-fill" style="--w:82%"></div></div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="skills-col">
+          <article class="card reveal">
+            <div class="skill-head">
+              <span class="icon-tile tone-amber s38"><i data-lucide="target"></i></span>
+              <span class="skill-name">Business Development</span>
+            </div>
+            <div class="tag-row">
+              <span class="tag">Opportunity Generation</span><span class="tag">Discovery &amp; Qualification</span><span class="tag">Multichannel Prospecting</span><span class="tag">Pipeline Management</span><span class="tag">Negotiation</span><span class="tag">Market Expansion</span>
+            </div>
+          </article>
+          <article class="card reveal">
+            <div class="skill-head">
+              <span class="icon-tile tone-amber s38"><i data-lucide="trending-up"></i></span>
+              <span class="skill-name">Growth &amp; Prospecting</span>
+            </div>
+            <div class="tag-row">
+              <span class="tag">Cold Email</span><span class="tag">LinkedIn Outreach</span><span class="tag">Outbound Automation</span><span class="tag">A/B Testing</span><span class="tag">SEO</span><span class="tag">Lead Generation</span><span class="tag">AI Personalization</span><span class="tag">CRM (HubSpot, Salesforce)</span>
+            </div>
+          </article>
+          <article class="card reveal">
+            <div class="skill-head">
+              <span class="icon-tile tone-amber s38"><i data-lucide="code"></i></span>
+              <span class="skill-name">Product &amp; Development</span>
+            </div>
+            <div class="tag-row">
+              <span class="tag">Product Management</span><span class="tag">Full-Stack JS/TS</span><span class="tag">Next.js / React</span><span class="tag">PostgreSQL</span><span class="tag">Git</span><span class="tag">AI-assisted Dev (Claude Code)</span>
+            </div>
+          </article>
+          <article class="card reveal">
+            <div class="skill-head">
+              <span class="icon-tile tone-amber s38"><i data-lucide="bot"></i></span>
+              <span class="skill-name">Technical &amp; AI</span>
+            </div>
+            <div class="tag-row">
+              <span class="tag">Python</span><span class="tag">Automation &amp; Scraping</span><span class="tag">Basic ML</span><span class="tag">AI Agents (Claude SDK)</span><span class="tag">Claude Code</span>
+            </div>
+          </article>
+          <article class="card reveal">
+            <div class="skill-head">
+              <span class="icon-tile tone-amber s38"><i data-lucide="sparkles"></i></span>
+              <span class="skill-name">Creative &amp; GenAI</span>
+            </div>
+            <div class="tag-row">
+              <span class="tag">Photoshop</span><span class="tag">Illustrator</span><span class="tag">After Effects</span><span class="tag">Veo 3</span><span class="tag">Runway</span><span class="tag">Sora</span><span class="tag">Midjourney</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Work -->
+  <section id="work" class="section">
+    <div class="container">
+      <div class="section-heading reveal">
+        <span class="eyebrow">Career</span>
+        <h2>My professional experience</h2>
+        <p class="subtitle">Four years across B2B startups in France, Spain and the US — growth, business development and product. One throughline: taking things from zero to traction.</p>
+      </div>
+
+      <div class="timeline">
+        <div class="tl-item reveal">
+          <div class="tl-rail"><span class="tl-dot current" aria-hidden="true"></span><span class="tl-line" aria-hidden="true"></span></div>
+          <div class="tl-body">
+            <article class="card interactive glow-amber">
+              <div class="exp-top">
+                <div>
+                  <div class="exp-role">
+                    <h3>Growth &amp; Product Specialist</h3>
+                    <span class="badge tone-success"><span class="bdot" aria-hidden="true"></span>Current</span>
+                  </div>
+                  <div class="exp-company">Fribl <span class="place">· Cannes (Remote)</span></div>
+                </div>
+                <span class="exp-period">May 2024 — Present</span>
+              </div>
+              <ul class="exp-points">
+                <li><i data-lucide="check"></i><span>Built Fribl's outbound function from zero (0 clients on arrival): landed the first paying accounts — the hardest — including EDHEC, and won at the Young Festival of Cannes 2025.</span></li>
+                <li><i data-lucide="check"></i><span>Scaled prospecting to ~2 qualified meetings/week, peaking at 10/month — a company record.</span></li>
+                <li><i data-lucide="check"></i><span>Conceived and built “Fribl Outbound”, an internal prospecting platform: LinkedIn + email sequences, CRM, unified inbox, Bayesian A/B testing, dashboard and AI auto-optimization — replacing a fragmented tool stack. Built end-to-end in ~2 months (TypeScript, Next.js, PostgreSQL) and adopted by the team.</span></li>
+                <li><i data-lucide="check"></i><span>Set up the entire cold-email infrastructure from scratch — Mailgun subdomain, DKIM/SPF/DMARC, deliverability — self-taught.</span></li>
+                <li><i data-lucide="check"></i><span>Owned Customer Success since Feb 2025: tracked API consumption, monitored account health and coordinated check-in calls.</span></li>
+                <li><i data-lucide="check"></i><span>Produced the homepage product tutorial video (motion design, After Effects) and LinkedIn visual content.</span></li>
+              </ul>
+              <div class="exp-stack">
+                <span class="tag">TypeScript</span><span class="tag">Next.js</span><span class="tag">PostgreSQL</span><span class="tag">Mailgun</span><span class="tag">HubSpot</span><span class="tag">After Effects</span>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <div class="tl-item reveal">
+          <div class="tl-rail"><span class="tl-dot" aria-hidden="true"></span><span class="tl-line" aria-hidden="true"></span></div>
+          <div class="tl-body">
+            <article class="card interactive glow-amber">
+              <div class="exp-top">
+                <div>
+                  <div class="exp-role"><h3>Business Developer</h3></div>
+                  <div class="exp-company">MyDataMachine <span class="place">· Paris, France</span></div>
+                </div>
+                <span class="exp-period">Oct 2022 — Jun 2023</span>
+              </div>
+              <ul class="exp-points">
+                <li><i data-lucide="check"></i><span>Generated and qualified leads across FR / ES / UK — €350k in pipeline (€200k signed), beating lead targets by +233%.</span></li>
+              </ul>
+              <div class="exp-stack">
+                <span class="tag">Prospecting</span><span class="tag">Qualification</span><span class="tag">Negotiation</span>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <div class="tl-item reveal">
+          <div class="tl-rail"><span class="tl-dot" aria-hidden="true"></span></div>
+          <div class="tl-body">
+            <article class="card interactive glow-amber">
+              <div class="exp-top">
+                <div>
+                  <div class="exp-role"><h3>Marketing Growth Operator</h3></div>
+                  <div class="exp-company">Propulse Video <span class="place">· Barcelona, Spain</span></div>
+                </div>
+                <span class="exp-period">Oct 2021 — May 2022</span>
+              </div>
+              <ul class="exp-points">
+                <li><i data-lucide="check"></i><span>Grew inbound leads +50% via SEO and a full WordPress site redesign.</span></li>
+              </ul>
+              <div class="exp-stack">
+                <span class="tag">SEO</span><span class="tag">WordPress</span><span class="tag">Content</span>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+
+      <div class="edu-grid">
+        <div class="reveal">
+          <div class="mono-label" style="margin-bottom:16px">Education</div>
+          <div class="edu-list">
+            <article class="card pad-sm edu-item interactive glow-amber">
+              <img class="edu-logo" src="media/logos/universidad-europea.svg" alt="Universidad Europea" loading="lazy">
+              <div class="edu-body">
+                <div class="edu-title">Master in Artificial Intelligence</div>
+                <div class="edu-meta"><span class="edu-org">Universidad Europea</span><span class="edu-year">2023–2024</span></div>
+                <div class="edu-note">ML, deep learning (Keras, Pandas)</div>
+              </div>
+            </article>
+            <article class="card pad-sm edu-item interactive glow-amber">
+              <img class="edu-logo" src="media/logos/ipag.svg" alt="IPAG Business School" loading="lazy">
+              <div class="edu-body">
+                <div class="edu-title">Master in International Marketing</div>
+                <div class="edu-meta"><span class="edu-org">IPAG Business School</span><span class="edu-year">2017–2022</span></div>
+                <div class="edu-note">Strategy, intl. project management</div>
+              </div>
+            </article>
+          </div>
+        </div>
+        <div class="reveal">
+          <div class="mono-label" style="margin-bottom:16px">Certifications</div>
+          <div class="edu-list">
+            <article class="card pad-sm edu-item interactive glow-amber">
+              <img class="edu-logo" src="media/logos/universidad-europea.svg" alt="Universidad Europea" loading="lazy">
+              <div class="edu-body">
+                <div class="edu-title">Advanced Python — Master in AI</div>
+                <div class="edu-meta"><span class="edu-org">Universidad Europea</span><span class="edu-year">2023–2024</span></div>
+              </div>
+            </article>
+            <article class="card pad-sm edu-item interactive glow-amber">
+              <img class="edu-logo" src="media/logos/exampro.svg" alt="ExamPro" loading="lazy">
+              <div class="edu-body">
+                <div class="edu-title">GenAI Essentials</div>
+                <div class="edu-meta"><span class="edu-org">ExamPro</span><span class="edu-year">Jul 2025</span></div>
+              </div>
+            </article>
+            <article class="card pad-sm edu-item interactive glow-amber">
+              <img class="edu-logo" src="media/logos/scrimba.svg" alt="Scrimba" loading="lazy">
+              <div class="edu-body">
+                <div class="edu-title">Fullstack Developer Path</div>
+                <div class="edu-meta"><span class="edu-org">Scrimba</span><span class="edu-year">2026</span></div>
+              </div>
+            </article>
+            <article class="card pad-sm edu-item interactive glow-amber">
+              <img class="edu-logo" src="media/logos/anthropic.svg" alt="Anthropic" loading="lazy">
+              <div class="edu-body">
+                <div class="edu-title">Claude Certified Architect — Foundations</div>
+                <div class="edu-meta"><span class="edu-org">Anthropic</span><span class="edu-year">Exam 2026</span></div>
+                <div style="margin-top:8px"><span class="badge tone-amber"><span class="bdot" aria-hidden="true"></span>In progress</span></div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects -->
+  <section id="projects" class="section">
+    <div class="container">
+      <div class="section-heading reveal">
+        <span class="eyebrow">Projects &amp; Ventures</span>
+        <h2>Things I've founded and built</h2>
+        <p class="subtitle">A founder's habit: build the whole thing — brand, product and go-to-market.</p>
+      </div>
+
+      <div class="proj-list">
+        <article class="card interactive glow-amber feature reveal">
+            <a class="proj-cover" href="https://konklue.com" target="_blank" rel="noopener" aria-label="Visit konklue.com"></a>
+            <div class="proj-media">
+              <video src="media/konklue.mp4" muted loop autoplay playsinline preload="metadata"></video>
+            </div>
+            <div class="proj-top">
+              <span class="icon-tile tone-amber s52"><i data-lucide="handshake"></i></span>
+              <span class="proj-period">2026 — Present</span>
+            </div>
+            <div class="proj-head">
+              <h3>Konklue</h3>
+              <span class="badge mono tone-amber">Founder</span>
+            </div>
+            <div class="proj-tagline">Brand ↔ creator matching, minus the middleman.</div>
+            <p class="proj-desc">A platform that matches brands and creators directly: an algorithm proposes the best matches by audience, vertical and budget, with AI-generated contracts and briefs, escrow payments, and a KPI-verification dashboard.</p>
+            <div class="tag-row" style="margin-top:16px">
+              <span class="tag">Marketplace</span><span class="tag">AI Contracts</span><span class="tag">Escrow</span><span class="tag">Launched Jun 2026</span>
+            </div>
+            <div class="proj-url"><i data-lucide="link"></i>konklue.com</div>
+        </article>
+
+        <div class="proj-grid">
+          <article class="card interactive glow-blue reveal">
+            <div class="proj-media">
+              <video src="media/fribl-outbound.mp4" muted loop autoplay playsinline preload="metadata"></video>
+            </div>
+            <div class="proj-top">
+              <span class="icon-tile tone-blue s44"><i data-lucide="send"></i></span>
+              <span class="proj-period">2024</span>
+            </div>
+            <div class="proj-head">
+              <h3>Fribl Outbound</h3>
+              <span class="badge mono tone-blue">Conceived &amp; built</span>
+            </div>
+            <div class="proj-tagline">An internal prospecting platform, shipped in ~2 months.</div>
+            <p class="proj-desc">LinkedIn + email sequences, CRM, unified inbox, Bayesian A/B testing, dashboard and AI auto-optimization — one system replacing a fragmented tool stack, adopted by the team.</p>
+            <div class="tag-row" style="margin-top:16px">
+              <span class="tag">TypeScript</span><span class="tag">Next.js</span><span class="tag">PostgreSQL</span><span class="tag">AI</span>
+            </div>
+            <div class="proj-url"><i data-lucide="link"></i>internal platform</div>
+          </article>
+
+          <article class="card interactive glow-blue reveal">
+            <div class="proj-media proj-media--contain proj-media--branded">
+              <img src="media/hexband.png" alt="Hexband brand system — resistance bands, pouch, diet guide and packaging I designed" loading="lazy">
+              <video class="proj-logo" src="media/hexband-logo.webm" muted autoplay playsinline preload="auto" aria-hidden="true"></video>
+            </div>
+            <div class="proj-top">
+              <span class="icon-tile tone-violet s44"><i data-lucide="dumbbell"></i></span>
+              <span class="proj-period">2023</span>
+            </div>
+            <div class="proj-head">
+              <h3>Hexband</h3>
+              <span class="badge mono tone-violet">Co-founder — Brand &amp; Product</span>
+            </div>
+            <div class="proj-tagline">A D2C fitness brand that hit Amazon's first page.</div>
+            <p class="proj-desc">Co-founded a D2C fitness brand on Amazon — reached the first page and sold 500 units. Led brand identity and art direction (the key differentiation lever on Amazon), including the product kit with a guide/lead-magnet via QR.</p>
+            <div class="tag-row" style="margin-top:16px">
+              <span class="tag">Amazon</span><span class="tag">Brand</span><span class="tag">Art Direction</span><span class="tag">500 units</span>
+            </div>
+            <div class="proj-url"><i data-lucide="link"></i>D2C fitness</div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="section">
+    <div class="container">
+      <article class="card feature reveal">
+        <div class="contact-bg" aria-hidden="true"></div>
+        <div class="contact-shader" id="contact-shader" aria-hidden="true"></div>
+        <div class="pulse-host" aria-hidden="true"></div>
+        <div class="contact-scrim" aria-hidden="true"></div>
+        <div class="contact-inner">
+          <div class="contact-body">
+            <div style="display:flex;justify-content:center;margin-bottom:20px">
+              <span class="badge mono tone-amber"><span class="bdot" aria-hidden="true"></span>Open to opportunities</span>
+            </div>
+            <h2>Let's build the next zero&nbsp;→&nbsp;one.</h2>
+            <p>Growth, outbound, automation or product — if you're taking something from nothing, I'd like to hear about it.</p>
+            <div class="contact-cta">
+              <a class="btn btn--accent btn--lg" href="mailto:matthieu@matdomi.com"><i data-lucide="mail"></i>Email me</a>
+              <a class="btn btn--secondary btn--lg" href="https://www.linkedin.com/in/matt-domi" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.63-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.22.79 24 1.77 24h20.45c.98 0 1.78-.78 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>
+                LinkedIn
+              </a>
+            </div>
+
+            <div class="contact-rows">
+              <a class="contact-row" href="mailto:matthieu@matdomi.com">
+                <span class="icon-tile tone-neutral s40"><i data-lucide="mail"></i></span>
+                <div><div class="rlabel">Email</div><div class="rvalue">matthieu@matdomi.com</div></div>
+              </a>
+              <a class="contact-row" href="tel:+33687102070">
+                <span class="icon-tile tone-neutral s40"><i data-lucide="phone"></i></span>
+                <div><div class="rlabel">Phone</div><div class="rvalue">+33 6 87 10 20 70</div></div>
+              </a>
+              <div class="contact-row">
+                <span class="icon-tile tone-neutral s40"><i data-lucide="map-pin"></i></span>
+                <div><div class="rlabel">Based in</div><div class="rvalue">Valdemorillo, Madrid</div></div>
+              </div>
+              <a class="contact-row" href="https://www.linkedin.com/in/matt-domi" target="_blank" rel="noopener">
+                <span class="icon-tile tone-neutral s40"><svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.63-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.22.79 24 1.77 24h20.45c.98 0 1.78-.78 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg></span>
+                <div><div class="rlabel">LinkedIn</div><div class="rvalue">matt-domi</div></div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+</main>
+
+<!-- Footer -->
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div class="footer-brand"><span class="dot" aria-hidden="true"></span>Matthieu Dominguez</div>
+    <div class="footer-meta">Business × Tech Builder · Valdemorillo, Madrid</div>
+    <div class="footer-socials">
+      <a href="https://www.linkedin.com/in/matt-domi" title="LinkedIn" target="_blank" rel="noopener">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.63-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.22.79 24 1.77 24h20.45c.98 0 1.78-.78 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>
+        <span class="visually-hidden">LinkedIn</span>
+      </a>
+      <a href="https://github.com/magomin" title="GitHub" target="_blank" rel="noopener">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.37.5 0 5.87 0 12.5c0 5.3 3.44 9.8 8.21 11.39.6.11.82-.26.82-.58 0-.29-.01-1.04-.02-2.05-3.34.72-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.09-.75.08-.73.08-.73 1.2.09 1.84 1.24 1.84 1.24 1.07 1.83 2.81 1.3 3.5.99.11-.78.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 6.01 0c2.29-1.55 3.3-1.23 3.3-1.23.66 1.66.24 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.49 5.92.43.37.81 1.1.81 2.22 0 1.61-.01 2.9-.01 3.29 0 .32.22.7.83.58A12 12 0 0 0 24 12.5C24 5.87 18.63.5 12 .5z"/></svg>
+        <span class="visually-hidden">GitHub</span>
+      </a>
+    </div>
+  </div>
+</footer>
+
+<!-- Easter egg — story ring to the interactive (KAPLAY) portfolio -->
+<a class="story-egg" href="/interactive/" aria-label="Play the interactive version of my portfolio">
+  <span class="ring" aria-hidden="true"></span>
+  <span class="disc" aria-hidden="true"><i data-lucide="gamepad-2"></i></span>
+  <span class="tip">Play the interactive version →</span>
+</a>
+
+<script src="main.js"></script>
 </body>
 </html>
