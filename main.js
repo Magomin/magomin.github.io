@@ -215,12 +215,44 @@
   if (!("IntersectionObserver" in window)) revealAll();
   setTimeout(revealAll, 5000);
 
-  /* ---- Nav scroll-spy ---- */
+  /* ---- Hero staggered reveal at load ---- */
+  try {
+    if (hero) requestAnimationFrame(function () { hero.classList.add("hero-in"); });
+  } catch (e) { /* hero-rise forced visible by reduced-motion/noscript fallbacks */ }
+  // Safety net: force hero visible if the rAF above never ran.
+  setTimeout(function () { if (hero) hero.classList.add("hero-in"); }, 5000);
+
+  /* ---- Nav scroll-spy + sliding pill ---- */
   try {
     var links = {};
     document.querySelectorAll(".nav-link").forEach(function (a) {
       links[a.getAttribute("href").slice(1)] = a;
     });
+    var navCenter = document.getElementById("nav-center");
+    var pill = navCenter && navCenter.querySelector(".nav-pill");
+    var pillPlaced = false;
+    // Write the active link's box onto the pill. animate=false → snap (suspend transition + reflow).
+    // Pill is display:none on mobile (offsetParent null) → skip so it never snaps to a 0-width box.
+    function movePill(link, animate) {
+      if (!pill || !link || pill.offsetParent === null) return;
+      if (!animate) {
+        var prev = pill.style.transition;
+        pill.style.transition = "none";
+        pill.style.transform = "translateX(" + link.offsetLeft + "px)";
+        pill.style.width = link.offsetWidth + "px";
+        void pill.offsetWidth; // force reflow so the snap lands before transition restores
+        pill.style.transition = prev;
+      } else {
+        pill.style.transform = "translateX(" + link.offsetLeft + "px)";
+        pill.style.width = link.offsetWidth + "px";
+      }
+    }
+    function snapToActive() {
+      var a = navCenter && navCenter.querySelector(".nav-link.active");
+      if (a) movePill(a, false);
+    }
+    requestAnimationFrame(snapToActive);
+    window.addEventListener("resize", snapToActive);
     var sections = ["about", "work", "projects", "contact"]
       .map(function (id) { return document.getElementById(id); })
       .filter(Boolean);
@@ -230,7 +262,7 @@
           if (!en.isIntersecting) return;
           Object.keys(links).forEach(function (k) { links[k].classList.remove("active"); });
           var a = links[en.target.id];
-          if (a) a.classList.add("active");
+          if (a) { a.classList.add("active"); movePill(a, pillPlaced); pillPlaced = true; }
         });
       }, { rootMargin: "-45% 0px -50% 0px" });
       sections.forEach(function (s) { spy.observe(s); });
@@ -252,8 +284,191 @@
           toggle.setAttribute("aria-expanded", "false");
         });
       });
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape" && nav.classList.contains("open")) {
+          nav.classList.remove("open");
+          toggle.setAttribute("aria-expanded", "false");
+          toggle.focus();
+        }
+      });
     }
   } catch (e) { /* nav still usable via CTA/anchors */ }
+
+  /* ---- Videos: respect reduced motion; pause off-screen (same pattern as the aurora .aura-off) ---- */
+  try {
+    if (reduce) {
+      document.querySelectorAll("video").forEach(function (v) {
+        v.removeAttribute("autoplay");
+        v.pause();
+      });
+    } else if ("IntersectionObserver" in window) {
+      var vidIO = new IntersectionObserver(function (ents) {
+        ents.forEach(function (en) {
+          var v = en.target;
+          if (en.isIntersecting) {
+            var p = v.play();
+            if (p && p.catch) p.catch(function () {}); // autoplay promise can reject
+          } else {
+            v.pause();
+          }
+        });
+      }, { rootMargin: "100px" });
+      document.querySelectorAll(".proj-media video").forEach(function (v) { vidIO.observe(v); });
+    }
+  } catch (e) { /* video playback is decorative */ }
+
+  /* ---- Project card 3D tilt + glare (mouse only; touch keeps native scroll) ---- */
+  try {
+    if (!reduce) {
+      var TILT_MAX = 8; // peak lean in degrees at the card edges — subtle
+      document.querySelectorAll(".t-tilt").forEach(function (tilt) {
+        var card = tilt.querySelector(".card");
+        if (!card) return;
+        function reset() {
+          tilt.classList.remove("is-hover");
+          card.classList.remove("is-tilting");
+          card.style.setProperty("--tilt-rx", "0deg");
+          card.style.setProperty("--tilt-ry", "0deg");
+        }
+        // mousemove (not pointermove) → mouse only, so touch scroll is never blocked.
+        tilt.addEventListener("mousemove", function (e) {
+          if (tilt.closest(".deck-dragging")) return; // deck drag in progress — tilt yields
+          var r = tilt.getBoundingClientRect();
+          var px = Math.min(1, Math.max(0, (e.clientX - r.left) / r.width));
+          var py = Math.min(1, Math.max(0, (e.clientY - r.top) / r.height));
+          tilt.classList.add("is-hover");
+          card.classList.add("is-tilting");
+          card.style.setProperty("--tilt-ry", ((px - 0.5) * TILT_MAX).toFixed(2) + "deg");
+          card.style.setProperty("--tilt-rx", ((0.5 - py) * TILT_MAX).toFixed(2) + "deg");
+          card.style.setProperty("--tilt-gx", (px * 100).toFixed(1) + "%");
+          card.style.setProperty("--tilt-gy", (py * 100).toFixed(1) + "%");
+        }, { passive: true });
+        tilt.addEventListener("mouseleave", reset);
+      });
+    }
+  } catch (e) { /* tilt is progressive enhancement */ }
+
+  /* ---- Projects deck (desktop ≥900px): fanned 3D stack over the .proj-list stage ----
+     No DOM moves — CSS display:contents flattens .proj-grid, JS only writes data-pos/classes.
+     Below 900px (or with JS off) the normal stacked/grid layout stands untouched. */
+  try {
+    var projList = document.querySelector("#projects .proj-list");
+    var deckNav = document.querySelector("#projects .deck-nav");
+    var deckSlides = projList ? Array.prototype.slice.call(projList.querySelectorAll(".t-tilt")) : [];
+    if (projList && deckNav && deckSlides.length > 1) {
+      var deckDots = Array.prototype.slice.call(deckNav.querySelectorAll(".deck-dot"));
+      var deckMQ = window.matchMedia("(min-width:900px)");
+      var deckActive = 0, deckOn = false, justDragged = false;
+
+      function deckLayout() {
+        var n = deckSlides.length;
+        deckSlides.forEach(function (s, i) {
+          var pos = (((i - deckActive) % n) + n) % n;
+          s.setAttribute("data-pos", pos);
+          s.classList.toggle("is-active", pos === 0);
+          s.classList.toggle("is-behind", pos !== 0);
+        });
+        deckDots.forEach(function (d, i) {
+          d.setAttribute("aria-current", i === deckActive ? "true" : "false");
+        });
+      }
+      function deckSet(i) {
+        var n = deckSlides.length;
+        deckActive = ((i % n) + n) % n;
+        deckLayout();
+      }
+      // Stage = tallest slide + fan stagger/shadow slack, so nothing clips.
+      function fitStage() {
+        if (!deckOn) return;
+        var max = 0;
+        deckSlides.forEach(function (s) { max = Math.max(max, s.offsetHeight); });
+        if (max) projList.style.height = (max + 40) + "px";
+      }
+      function deckToggle() {
+        deckOn = deckMQ.matches;
+        if (deckOn) {
+          projList.classList.add("deck-on");
+          projList.setAttribute("role", "group");
+          projList.setAttribute("aria-roledescription", "carousel");
+          projList.setAttribute("aria-label", "Projects");
+          // absolute slides can dodge the reveal IO — force their cards visible
+          deckSlides.forEach(function (s) {
+            var c = s.querySelector(".card.reveal");
+            if (c) c.classList.add("in");
+          });
+          deckLayout();
+          requestAnimationFrame(fitStage);
+        } else {
+          projList.classList.remove("deck-on");
+          projList.removeAttribute("role");
+          projList.removeAttribute("aria-roledescription");
+          projList.removeAttribute("aria-label");
+          projList.style.height = "";
+          deckSlides.forEach(function (s) {
+            s.removeAttribute("data-pos");
+            s.classList.remove("is-active", "is-behind");
+          });
+        }
+      }
+      deckToggle();
+      if (deckMQ.addEventListener) deckMQ.addEventListener("change", deckToggle);
+      else if (deckMQ.addListener) deckMQ.addListener(deckToggle);
+      window.addEventListener("resize", fitStage);
+
+      // Arrows + dots
+      deckNav.addEventListener("click", function (e) {
+        var arrow = e.target.closest(".deck-arrow");
+        if (arrow) { deckSet(deckActive + (+arrow.getAttribute("data-dir") || 1)); return; }
+        var dot = e.target.closest(".deck-dot");
+        if (dot) deckSet(deckDots.indexOf(dot));
+      });
+
+      // Click a peeking card → bring it front. Capture beats the Konklue cover <a>;
+      // also swallows the click that follows a real drag.
+      projList.addEventListener("click", function (e) {
+        if (!deckOn) return;
+        if (justDragged) { e.preventDefault(); e.stopPropagation(); justDragged = false; return; }
+        var s = e.target.closest(".t-tilt");
+        if (s && s.classList.contains("is-behind")) { e.preventDefault(); deckSet(deckSlides.indexOf(s)); }
+      }, true);
+
+      // Horizontal drag on the front card (mouse only). >8px of travel suppresses the tilt
+      // (.deck-dragging — the tilt handler yields); ≥60px advances and swallows the click.
+      // Native link/image dragging (Konklue cover <a>, Hexband <img>) would cancel the pointer
+      // stream mid-drag — suppress it inside the deck.
+      projList.addEventListener("dragstart", function (e) {
+        if (deckOn) e.preventDefault();
+      });
+      var dragX = 0, dragging = false;
+      projList.addEventListener("pointerdown", function (e) {
+        if (!deckOn || e.pointerType !== "mouse") return;
+        var s = e.target.closest(".t-tilt");
+        if (!s || !s.classList.contains("is-active")) return;
+        dragging = true; dragX = e.clientX;
+      });
+      window.addEventListener("pointermove", function (e) {
+        if (dragging && Math.abs(e.clientX - dragX) > 8) projList.classList.add("deck-dragging");
+      });
+      window.addEventListener("pointerup", function (e) {
+        if (!dragging) return;
+        dragging = false;
+        projList.classList.remove("deck-dragging");
+        var dx = e.clientX - dragX;
+        if (Math.abs(dx) >= 60) {
+          justDragged = true;
+          deckSet(deckActive + (dx < 0 ? 1 : -1));
+          setTimeout(function () { justDragged = false; }, 0);
+        }
+      });
+
+      // ← / → while focus is inside the projects container
+      projList.parentNode.addEventListener("keydown", function (e) {
+        if (!deckOn) return;
+        if (e.key === "ArrowLeft") { deckSet(deckActive - 1); e.preventDefault(); }
+        else if (e.key === "ArrowRight") { deckSet(deckActive + 1); e.preventDefault(); }
+      });
+    }
+  } catch (e) { /* deck is progressive enhancement — grid layout stands */ }
 
   /* ---- Paper Shaders (lazy-loaded from esm.sh, React loaded ONCE) ----
      Same technique the design's GlowBorder uses: isolated React root rendered into a host.

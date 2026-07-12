@@ -28,7 +28,7 @@
   --glow-blue-sm:0 0 0 1px rgba(76,134,255,.25),0 8px 30px rgba(76,134,255,.18);
   --blur-nav:saturate(160%) blur(16px);
   --ease-out:cubic-bezier(.22,1,.36,1); --ease-in-out:cubic-bezier(.65,0,.35,1);
-  --dur-fast:140ms; --dur-base:220ms; --dur-slow:420ms;
+  --dur-fast:140ms; --dur-base:220ms; --dur-slow:420ms; --dur-glow:550ms; --dur-reveal:600ms;
 }
 
 /* ============================================================
@@ -67,13 +67,17 @@ img,svg{max-width:100%}
   padding:5px 8px;border-radius:16px;background:rgba(18,22,32,.32);
   box-shadow:inset 0 0 0 1px rgba(255,255,255,.1),inset 0 1px 0 rgba(255,255,255,.14),0 10px 34px rgba(0,0,0,.45);
   backdrop-filter:blur(28px) saturate(180%);-webkit-backdrop-filter:blur(28px) saturate(180%)}
-.nav-link{position:relative;padding:8px 14px;font-family:var(--font-display);font-size:14px;font-weight:500;
+.nav-link{position:relative;z-index:1;padding:8px 14px;font-family:var(--font-display);font-size:14px;font-weight:500;
   color:var(--text-2);transition:color var(--dur-fast) var(--ease-out)}
 .nav-link:hover{color:var(--text-1)}
+.nav-link.active{color:var(--amber)}
 .nav-link::after{content:"";position:absolute;left:14px;right:14px;bottom:2px;height:1.5px;border-radius:2px;
   background:linear-gradient(90deg,var(--amber),var(--blue));transform:scaleX(0);transform-origin:center;
-  transition:transform 240ms var(--ease-out)}
-.nav-link:hover::after{transform:scaleX(1)}
+  transition:transform var(--dur-base) var(--ease-out)}
+/* Sliding active pill (desktop): JS writes offsetLeft/offsetWidth of the active link; CSS tweens. */
+.nav-pill{position:absolute;top:5px;left:0;height:calc(100% - 10px);width:0;z-index:0;pointer-events:none;
+  border-radius:11px;background:rgba(255,255,255,.07);box-shadow:inset 0 0 0 1px var(--border-faint);
+  transform:translateX(0);transition:transform var(--dur-base) var(--ease-out),width var(--dur-base) var(--ease-out)}
 .nav-toggle{display:none;flex-direction:column;justify-content:center;gap:5px;width:40px;height:40px;padding:0 9px;
   background:rgba(255,255,255,.05);border:none;border-radius:var(--radius-md);box-shadow:var(--ring-inset);cursor:pointer}
 .nav-toggle-bar{display:block;height:2px;width:100%;border-radius:2px;background:var(--text-1)}
@@ -84,20 +88,16 @@ img,svg{max-width:100%}
 .btn{font-family:var(--font-display);font-weight:600;letter-spacing:-.01em;
   display:inline-flex;align-items:center;justify-content:center;gap:9px;border:none;position:relative;overflow:hidden;
   cursor:pointer;white-space:nowrap;
-  transition:transform .4s cubic-bezier(.2,.7,.2,1),box-shadow .55s var(--ease-out),background .55s var(--ease-out)}
+  transition:transform var(--dur-fast) var(--ease-out),box-shadow var(--dur-glow) var(--ease-out),background var(--dur-glow) var(--ease-out)}
+.btn:active{transform:translateY(0) scale(.97)} /* press feedback — base rule so touch gets it too */
 .btn i,.btn svg{width:16px;height:16px;flex:none;position:relative;z-index:1}
 .btn-label{position:relative;z-index:1}
 /* Light sweep — a soft highlight glides across on hover; gives every button the page's "luz" feel. */
 .btn::after{content:"";position:absolute;top:0;left:-75%;width:55%;height:100%;z-index:2;pointer-events:none;
   background:linear-gradient(100deg,transparent,rgba(255,255,255,.32),transparent);transform:skewX(-20deg);opacity:0}
-.btn:hover::after{animation:btnSheen .75s var(--ease-out)}
 @keyframes btnSheen{0%{left:-75%;opacity:0}14%{opacity:1}100%{left:155%;opacity:0}}
 @media (prefers-reduced-motion:reduce){.btn:hover::after{animation:none}}
-/* Softer lift + colored glow per variant (replaces the flat brightness filter). */
-.btn:not(.btn--primary):hover{transform:translateY(-2px)}
-.btn--accent:hover{box-shadow:0 12px 32px rgba(255,138,43,.5),inset 0 0 0 1px rgba(255,205,150,.5)}
-.btn--secondary:hover{background:rgba(255,255,255,.09);box-shadow:inset 0 0 0 1px rgba(255,255,255,.24),0 10px 28px rgba(0,0,0,.4)}
-.btn--ghost:hover{background:rgba(255,255,255,.06);box-shadow:0 10px 28px rgba(0,0,0,.32)}
+/* Hover lift/sheen/glow rules live in the (hover:hover) block near the end of the file. */
 .btn--sm{height:38px;padding:0 16px;border-radius:11px;font-size:13.5px}
 .btn--md{height:48px;padding:0 22px;border-radius:13px;font-size:15px}
 .btn--lg{height:56px;padding:0 30px;border-radius:15px;font-size:16px}
@@ -110,16 +110,12 @@ img,svg{max-width:100%}
     radial-gradient(120% 150% at 50% 120%,rgba(255,172,10,.5) 0%,transparent 62%),
     radial-gradient(120% 150% at 50% -20%,rgba(1,117,255,.42) 0%,transparent 62%),
     radial-gradient(90% 120% at 50% 50%,rgba(125,164,255,.12) 0%,transparent 72%);
-  opacity:.6;transition:opacity .6s var(--ease-out)}
-.btn--primary:hover{transform:translateY(-1px);
-  box-shadow:inset 0 0 0 1px rgba(255,190,120,.3),0 10px 34px rgba(255,138,43,.3),0 8px 34px rgba(1,117,255,.24)}
-.btn--primary:hover::before{opacity:1}
+  opacity:.6;transition:opacity var(--dur-glow) var(--ease-out)}
 /* GrainGradient noise host inside the hero CTA (same effect as the contact card). Screen-blend so the
    transparent-colorBack shader only ADDS its grain over the CSS aurora; sits above ::before, below the label. */
 /* Grain hidden at rest; fades in on hover (mouse arrives → the gradient appears, no abrupt pop). */
 .btn-shader{position:absolute;inset:0;z-index:0;border-radius:inherit;overflow:hidden;pointer-events:none;
-  opacity:0;transition:opacity .5s var(--ease-out);mix-blend-mode:screen}
-.btn--grain:hover .btn-shader{opacity:.92}
+  opacity:0;transition:opacity var(--dur-glow) var(--ease-out);mix-blend-mode:screen}
 @media (prefers-reduced-motion:reduce){.btn-shader{transition:none}}
 .btn--accent{background:var(--amber);color:#241402;box-shadow:0 8px 26px rgba(255,138,43,.28)}
 .btn--secondary{background:rgba(255,255,255,.05);color:var(--text-1);box-shadow:inset 0 0 0 1px var(--border-strong)}
@@ -151,6 +147,14 @@ img,svg{max-width:100%}
 .hero h1{font-family:var(--font-display);font-weight:500;font-size:clamp(2.7rem,7.2vw,5.4rem);line-height:1.03;letter-spacing:-.035em;color:#fff;margin:0;text-shadow:0 4px 60px rgba(255,180,110,.18)}
 .hero-sub{margin:26px auto 0;max-width:560px;font-size:clamp(15px,1.7vw,18px);line-height:1.6;color:var(--text-2)}
 .hero-cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:36px}
+/* Staggered hero reveal at load — JS adds .hero-in to .hero on first rAF; children rise + unblur in sequence. */
+.hero-rise{opacity:0;transform:translateY(14px);filter:blur(4px);
+  transition:opacity var(--dur-reveal) var(--ease-out),transform var(--dur-reveal) var(--ease-out),filter var(--dur-reveal) var(--ease-out)}
+.hero.hero-in .hero-rise{opacity:1;transform:none;filter:none}
+.hero.hero-in .hero-rise--1{transition-delay:60ms}
+.hero.hero-in .hero-rise--2{transition-delay:120ms}
+.hero.hero-in .hero-rise--3{transition-delay:180ms}
+.hero.hero-in .hero-rise--4{transition-delay:240ms}
 .hero-stats{position:relative;z-index:2;max-width:var(--container);margin:clamp(64px,9vw,116px) auto 0;padding:0 var(--gutter) clamp(48px,7vw,90px)}
 .stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1px;background:rgba(255,255,255,.07);
   border-radius:var(--radius-lg);overflow:hidden;box-shadow:inset 0 0 0 1px rgba(255,255,255,.08),0 30px 80px rgba(0,0,0,.5);backdrop-filter:blur(10px)}
@@ -159,21 +163,9 @@ img,svg{max-width:100%}
 .stat-value.gradient{background:var(--aurora-warm);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
 .stat-value--word{font-size:clamp(1.35rem,2.1vw,1.7rem);letter-spacing:-.02em;line-height:1.15}
 .stat-label{margin-top:8px;font-size:13.5px;line-height:1.45;color:var(--text-2)}
-.stat-note{margin-top:4px;font-family:var(--font-mono);font-size:11px;letter-spacing:.04em;color:var(--text-3)}
 
-/* Aurora rays: animation is set inline by JS; keyframes live here */
-@keyframes auroraFlicker{
-  0%{opacity:.32;transform:translateY(0) scaleX(1) scaleY(1)}
-  30%{opacity:.78;transform:translateY(-1.5%) scaleX(1.08) scaleY(1.03)}
-  60%{opacity:.48;transform:translateY(0) scaleX(.94) scaleY(1)}
-  100%{opacity:.9;transform:translateY(-2.5%) scaleX(1.14) scaleY(1.05)}
-}
-@keyframes auroraDrift{0%{transform:translateX(-2.2%)}100%{transform:translateX(2.2%)}}
+/* Aurora bloom pulse — animation is set inline by JS; keyframes live here */
 @keyframes auroraPulse{0%,100%{opacity:.82;transform:translateX(-50%) scale(1)}50%{opacity:1;transform:translateX(-50%) scale(1.06)}}
-
-/* ============================================================
-   Marquee
-   ============================================================ */
 
 /* ============================================================
    Section heading
@@ -189,9 +181,6 @@ img,svg{max-width:100%}
 .card.feature{border-radius:var(--radius-xl);padding:28px}
 .card.pad-sm{padding:18px}
 .card.interactive{transition:transform var(--dur-base) var(--ease-out),box-shadow var(--dur-base) var(--ease-out)}
-.card.interactive:hover{transform:translateY(-3px)}
-.card.interactive.glow-amber:hover{box-shadow:var(--glow-amber-sm)}
-.card.interactive.glow-blue:hover{box-shadow:var(--glow-blue-sm)}
 
 /* ============================================================
    Tags / Badges / IconTiles
@@ -200,14 +189,12 @@ img,svg{max-width:100%}
   background:rgba(255,255,255,.03);box-shadow:inset 0 0 0 1px var(--border);
   font-family:var(--font-body);font-size:13.5px;font-weight:500;color:var(--text-2);white-space:nowrap;
   transition:color var(--dur-fast) var(--ease-out),box-shadow var(--dur-fast) var(--ease-out)}
-.tag:hover{color:var(--text-1);box-shadow:inset 0 0 0 1px var(--border-strong)}
 .tag-row{display:flex;gap:8px;flex-wrap:wrap}
 
 .badge{display:inline-flex;align-items:center;gap:6px;height:26px;padding:0 11px;border-radius:var(--radius-pill);
   font-family:var(--font-display);font-size:11px;font-weight:500;line-height:1}
 .badge.mono{font-family:var(--font-mono);font-weight:500;letter-spacing:.14em;text-transform:uppercase}
 .badge .bdot{width:6px;height:6px;border-radius:50%;background:currentColor;box-shadow:0 0 8px currentColor}
-.badge.tone-success{color:var(--success);background:var(--success-soft)}
 .badge.tone-amber{color:var(--amber);background:var(--amber-soft);box-shadow:inset 0 0 0 1px rgba(255,171,77,.35)}
 .badge.tone-blue{color:var(--violet);background:var(--blue-soft)}
 .badge.tone-violet{color:#8a6bff;background:rgba(138,107,255,.14);box-shadow:inset 0 0 0 1px rgba(138,107,255,.3)}
@@ -236,18 +223,18 @@ img,svg{max-width:100%}
 .lang-bar{height:6px;border-radius:999px;background:rgba(255,255,255,.06);overflow:hidden}
 /* Default = already filled (safe for no-JS / reduced-motion / reveal fallback). */
 .lang-fill{height:100%;border-radius:999px;background:var(--aurora-warm);width:var(--w,100%)}
-/* JS adds .anim only when motion is allowed → start at 0 and fill on reveal (.in), staggered top-to-bottom. */
-.lang-block.anim .lang-fill{width:0;transition:width .7s var(--ease-out)}
-.lang-block.anim.in .lang-fill{width:var(--w)}
+/* JS adds .anim only when motion is allowed → scale from 0 and fill on reveal (.in), staggered top-to-bottom.
+   transform (not width) so the fill never triggers layout; the track's overflow:hidden clips it. */
+.lang-block.anim .lang-fill{transform:scaleX(0);transform-origin:left;transition:transform var(--dur-reveal) var(--ease-out)}
+.lang-block.anim.in .lang-fill{transform:scaleX(1)}
 .lang-block.anim .lang-row:nth-child(3) .lang-fill{transition-delay:.12s}
 .lang-block.anim .lang-row:nth-child(4) .lang-fill{transition-delay:.24s}
-.interests{margin-top:26px;display:flex;gap:8px;flex-wrap:wrap}
 .skills-col{display:flex;flex-direction:column;gap:14px}
 .skill-head{display:flex;align-items:center;gap:12px;margin-bottom:14px}
 .skill-name{font-family:var(--font-display);font-weight:600;font-size:16px;color:var(--text-1)}
 /* Skill cards unlock one-by-one when About enters view: fade + slide-up + scale-in + a brief accent ring that settles.
    Stagger lives in CSS (nth-child) so main.js just toggles .in; skill cards are excluded from the generic inline delay. */
-.skills-col .card.reveal{transform:translateY(24px) scale(.96);transition:opacity .55s var(--ease-out),transform .55s var(--ease-out)}
+.skills-col .card.reveal{transform:translateY(24px) scale(.96);transition:opacity var(--dur-reveal) var(--ease-out),transform var(--dur-reveal) var(--ease-out)}
 .skills-col .card.reveal.in{opacity:1;transform:none;animation:skillPulse .9s var(--ease-out)}
 .skills-col .card.reveal:nth-child(1){transition-delay:0s;animation-delay:0s}
 .skills-col .card.reveal:nth-child(2){transition-delay:.14s;animation-delay:.14s}
@@ -261,31 +248,20 @@ img,svg{max-width:100%}
 }
 
 /* ============================================================
-   Work / timeline
+   Work / ledger — Swiss editorial strata, hairline rows, no boxes
    ============================================================ */
-.timeline{margin-top:44px;max-width:820px}
-.tl-item{display:grid;grid-template-columns:22px minmax(0,1fr);gap:20px}
-.tl-rail{display:flex;flex-direction:column;align-items:center;padding-top:6px}
-.tl-dot{width:12px;height:12px;border-radius:50%;flex:none;background:var(--ink-600);box-shadow:var(--ring-inset);
-  transition:background .3s var(--ease-out),box-shadow .3s var(--ease-out),transform .3s var(--ease-out)}
-/* default lit = current; hovered card = lit — amber glow + slight grow */
-.tl-dot.current,
-.timeline .tl-item:hover .tl-dot{background:var(--aurora-warm);box-shadow:0 0 13px rgba(255,138,43,.85);transform:scale(1.25)}
-/* only one lit at a time: hovering another card dims the always-on current dot */
-.timeline:has(.tl-item:hover) .tl-item:not(:hover) .tl-dot.current{
-  background:var(--ink-600);box-shadow:var(--ring-inset);transform:none}
-.tl-line{flex:1;width:2px;margin-top:6px;background:linear-gradient(var(--border-strong),transparent)}
-.tl-body{padding-bottom:40px}
-.exp-top{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap}
-.exp-role{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-.exp-role h3{font-size:19px;font-weight:600;color:var(--text-1);margin:0}
-.exp-company{margin-top:5px;font-size:15px;color:var(--amber);font-weight:500}
-.exp-company .place{color:var(--text-3);font-weight:400}
-.exp-period{font-family:var(--font-mono);font-size:11.5px;letter-spacing:.04em;color:var(--text-3);white-space:nowrap;padding-top:4px}
-.exp-points{margin:16px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px}
-.exp-points li{display:grid;grid-template-columns:16px 1fr;gap:10px;font-size:14.5px;line-height:1.6;color:var(--text-2)}
-.exp-points li i{width:14px;height:14px;color:var(--amber);margin-top:4px}
-.exp-stack{margin-top:16px;display:flex;gap:7px;flex-wrap:wrap}
+.ledger{margin-top:44px;max-width:920px}
+.ledger-row{display:grid;grid-template-columns:200px 1fr;gap:clamp(24px,4vw,64px);
+  padding:clamp(28px,3.4vw,46px) 0;border-top:1px solid var(--border)}
+.ledger-row:first-child{border-top:none;padding-top:8px}
+.ledger-period{font-family:var(--font-mono);font-size:12px;letter-spacing:.04em;color:var(--text-3)}
+.ledger-company{margin-top:10px;font-family:var(--font-display);font-weight:600;font-size:18px;color:var(--amber)}
+.ledger-place{margin-top:3px;font-size:12.5px;color:var(--text-3)}
+.ledger-main h3{font-family:var(--font-display);font-weight:500;font-size:clamp(24px,2.7vw,33px);
+  letter-spacing:-.02em;color:var(--text-1);line-height:1.1}
+.ledger-prose{margin:16px 0 0;max-width:65ch;font-size:16px;line-height:1.72;color:var(--text-2)}
+.ledger-prose .hi{color:var(--amber);font-weight:500}
+.ledger-prose .hi-w{color:var(--text-1);font-weight:600}
 
 .edu-grid{margin-top:24px;display:grid;grid-template-columns:1fr 1fr;gap:36px}
 .edu-list{display:grid;gap:12px}
@@ -299,7 +275,6 @@ img,svg{max-width:100%}
 .edu-body{flex:1;min-width:0}
 .edu-logo{flex:none;height:22px;width:auto;max-width:96px;object-fit:contain;margin-top:1px;
   filter:brightness(0) invert(1);opacity:.72;transition:opacity .4s var(--ease-out),transform .4s var(--ease-out)}
-.edu-item:hover .edu-logo{opacity:1;transform:scale(1.06)}
 
 /* ============================================================
    Projects
@@ -334,6 +309,71 @@ img,svg{max-width:100%}
 .card:not(.feature) .proj-head h3{font-size:20px}
 .card.feature .proj-tagline{font-size:17px}
 .card:not(.feature) .proj-tagline{font-size:15px}
+
+/* ============================================================
+   Card tilt (project cards) — pointer-only 3D lean + glare
+   ============================================================ */
+/* Outer wrapper is the flat hit area (never transforms); the card inside rotates.
+   Perspective lives in the card's own transform (per pattern) so the wrapper stays flat. */
+.proj-grid>.t-tilt{height:100%}
+.proj-grid>.t-tilt>.card{height:100%}
+.t-tilt .card.interactive{
+  transform:perspective(1000px) rotateX(var(--tilt-rx,0deg)) rotateY(var(--tilt-ry,0deg));
+  transform-style:preserve-3d;
+  transition:transform var(--dur-glow) var(--ease-out),box-shadow var(--dur-base) var(--ease-out)}
+.t-tilt .card.interactive.is-tilting{transition:transform var(--dur-slow) var(--ease-out),box-shadow var(--dur-base) var(--ease-out)}
+/* Tilt replaces the flat hover lift — the translateY(-3px) would fight the rotate. */
+.t-tilt .card.interactive:hover{transform:perspective(1000px) rotateX(var(--tilt-rx,0deg)) rotateY(var(--tilt-ry,0deg))}
+/* Cursor-tracked glare — light that adds (screen blend) at the pointer. z2 keeps it under Konklue's .proj-cover (z3). */
+.t-tilt-glare{position:absolute;inset:0;z-index:2;pointer-events:none;border-radius:inherit;opacity:0;mix-blend-mode:screen;
+  background:
+    radial-gradient(circle 95px at var(--tilt-gx,50%) var(--tilt-gy,50%),rgba(255,255,255,.4),rgba(255,255,255,.05) 52%,rgba(255,255,255,0) 84%),
+    radial-gradient(circle 220px at var(--tilt-gx,50%) var(--tilt-gy,50%),rgba(255,255,255,.16),rgba(255,255,255,0) 78%);
+  transition:opacity var(--dur-base) var(--ease-out)}
+.t-tilt.is-hover .t-tilt-glare{opacity:.3}
+
+/* ============================================================
+   Projects deck — fanned 3D stack (desktop ≥900px; JS adds .deck-on)
+   ============================================================ */
+/* No DOM moves: .proj-grid becomes display:contents so all three .t-tilt slides share the
+   .proj-list stage. Below 900px (or if JS fails) the normal flow/grid layout stands. */
+@media (min-width:900px){
+  /* pointer-events:none on the stage: its z=0 plane sits IN FRONT of the translateZ-negative
+     slides in the preserve-3d space and would swallow every click on the peek slivers. */
+  .proj-list.deck-on{position:relative;perspective:1200px;transform-style:preserve-3d;pointer-events:none}
+  .proj-list.deck-on .t-tilt{pointer-events:auto}
+  .proj-list.deck-on .proj-grid{display:contents}
+  .proj-list.deck-on .t-tilt{position:absolute;top:0;left:50%;width:min(780px,82%);height:auto;
+    transform:translateX(-50%);transform-style:preserve-3d;will-change:transform,filter;
+    transition:transform var(--dur-glow) var(--ease-out),filter var(--dur-glow) var(--ease-out)}
+  .proj-list.deck-on .t-tilt[data-pos="0"]{transform:translateX(-50%);filter:none;z-index:3}
+  /* behind cards fanned right — pushed back, rotated, dimmed; slivers stay ≥70px on screen */
+  .proj-list.deck-on .t-tilt[data-pos="1"]{transform:translateX(calc(-50% + 160px)) translateY(12px) translateZ(-140px) rotateY(-7deg) scale(.94);filter:brightness(.65);z-index:2}
+  .proj-list.deck-on .t-tilt[data-pos="2"]{transform:translateX(calc(-50% + 330px)) translateY(24px) translateZ(-280px) rotateY(-9deg) scale(.88);filter:brightness(.45);z-index:1}
+  /* separation shadow on the front card */
+  .proj-list.deck-on .t-tilt.is-active .card{box-shadow:var(--ring-inset),-30px 40px 80px rgba(0,0,0,.6)}
+  /* behind cards: tilt off (front card keeps it), glare off, cover link inert, click brings front */
+  .proj-list.deck-on .t-tilt.is-behind .card{transform:none!important}
+  .proj-list.deck-on .t-tilt.is-behind .t-tilt-glare{display:none}
+  .proj-list.deck-on .t-tilt.is-behind .proj-cover{pointer-events:none}
+  .proj-list.deck-on .t-tilt.is-behind{cursor:pointer}
+}
+/* Quiet control row — ghost chevrons flanking 6px dots; visible only while the deck is on */
+.deck-nav{display:none}
+.proj-list.deck-on~.deck-nav{margin-top:28px;display:flex;align-items:center;justify-content:center;gap:18px}
+.deck-arrow{display:inline-flex;background:none;border:none;padding:4px;cursor:pointer;color:var(--text-3);
+  transition:color var(--dur-fast) var(--ease-out)}
+.deck-arrow i,.deck-arrow svg{width:20px;height:20px}
+.deck-dots{display:flex;align-items:center;gap:9px}
+.deck-dot{width:6px;height:6px;border-radius:50%;border:none;padding:0;cursor:pointer;
+  background:rgba(255,255,255,.18);
+  transition:background var(--dur-fast) var(--ease-out),box-shadow var(--dur-fast) var(--ease-out)}
+.deck-dot[aria-current="true"]{background:var(--amber);box-shadow:0 0 8px rgba(255,138,43,.7)}
+
+/* ============================================================
+   Hero → About divider (subtle wave band)
+   ============================================================ */
+.hero-divider{display:block;width:100%;height:clamp(40px,6vw,70px);fill:var(--ink-800)}
 
 /* ============================================================
    Contact
@@ -376,13 +416,13 @@ img,svg{max-width:100%}
 .footer-brand .dot{width:10px;height:10px;border-radius:50%;background:var(--aurora-warm);box-shadow:0 0 10px rgba(255,138,43,.7)}
 .footer-meta{font-family:var(--font-mono);font-size:11.5px;color:var(--text-3)}
 .footer-socials{display:flex;gap:14px}
-.footer-socials a{color:var(--text-3);display:inline-flex}
+.footer-socials a{color:var(--text-3);display:inline-flex;padding:6px;margin:-6px} /* bigger hit area, no layout shift */
 .footer-socials a:hover{color:var(--text-1)}
 
 /* ============================================================
    Scroll-reveal
    ============================================================ */
-.reveal{opacity:0;transform:translateY(24px);transition:opacity .6s var(--ease-out),transform .6s var(--ease-out)}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity var(--dur-reveal) var(--ease-out),transform var(--dur-reveal) var(--ease-out)}
 .reveal.in{opacity:1;transform:none}
 
 /* ============================================================
@@ -391,8 +431,9 @@ img,svg{max-width:100%}
 .story-egg{position:fixed;right:20px;bottom:20px;z-index:60;width:56px;height:56px;display:inline-flex;align-items:center;justify-content:center}
 .story-egg .ring{position:absolute;inset:0;border-radius:50%;padding:2px;
   background:conic-gradient(from 0deg,#ff9500,#ffcd7d,#7da4ff,#0175ff,#ff9500);
-  animation:spin 6s linear infinite;
+  animation:spin 6s linear infinite;animation-play-state:paused; /* spins only on hover/focus */
   filter:drop-shadow(0 0 10px rgba(255,138,43,.35))}
+.story-egg:focus-visible .ring{animation-play-state:running}
 .story-egg .ring::after{content:"";position:absolute;inset:2px;border-radius:50%;background:var(--ink-900)}
 .story-egg .disc{position:relative;z-index:1;width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;
   background:radial-gradient(120% 120% at 50% 20%,#12161f,#06070a);color:var(--warm)}
@@ -402,23 +443,56 @@ img,svg{max-width:100%}
   background:rgba(12,15,22,.92);box-shadow:inset 0 0 0 1px var(--border);backdrop-filter:blur(10px);
   font-family:var(--font-display);font-size:12.5px;font-weight:500;color:var(--text-1);
   opacity:0;pointer-events:none;transition:opacity var(--dur-base) var(--ease-out),transform var(--dur-base) var(--ease-out)}
-.story-egg:hover .tip,.story-egg:focus-visible .tip{opacity:1;transform:translateY(-50%) translateX(0)}
-.story-egg:hover .ring{filter:drop-shadow(0 0 16px rgba(255,138,43,.55))}
+.story-egg:focus-visible .tip{opacity:1;transform:translateY(-50%) translateX(0)}
 @keyframes spin{to{transform:rotate(360deg)}}
+
+/* ============================================================
+   Hover-driven motion — mouse-like pointers only (touch gets no stuck hover states)
+   ============================================================ */
+@media (hover:hover) and (pointer:fine){
+  .btn:hover::after{animation:btnSheen .75s var(--ease-out)}
+  /* Softer lift + colored glow per variant (replaces the flat brightness filter). */
+  .btn:not(.btn--primary):hover{transform:translateY(-2px)}
+  .btn--accent:hover{box-shadow:0 12px 32px rgba(255,138,43,.5),inset 0 0 0 1px rgba(255,205,150,.5)}
+  .btn--secondary:hover{background:rgba(255,255,255,.09);box-shadow:inset 0 0 0 1px rgba(255,255,255,.24),0 10px 28px rgba(0,0,0,.4)}
+  .btn--ghost:hover{background:rgba(255,255,255,.06);box-shadow:0 10px 28px rgba(0,0,0,.32)}
+  .btn--primary:hover{transform:translateY(-1px);
+    box-shadow:inset 0 0 0 1px rgba(255,190,120,.3),0 10px 34px rgba(255,138,43,.3),0 8px 34px rgba(1,117,255,.24)}
+  .btn--primary:hover::before{opacity:1}
+  .btn--grain:hover .btn-shader{opacity:.92}
+  .nav-link:hover::after{transform:scaleX(1)}
+  .card.interactive:hover{transform:translateY(-3px)}
+  .card.interactive.glow-amber:hover{box-shadow:var(--glow-amber-sm)}
+  .card.interactive.glow-blue:hover{box-shadow:var(--glow-blue-sm)}
+  .tag:hover{color:var(--text-1);box-shadow:inset 0 0 0 1px var(--border-strong)}
+  .edu-item:hover .edu-logo{opacity:1;transform:scale(1.06)}
+  .deck-arrow:hover{color:var(--text-1)}
+  .story-egg:hover .tip{opacity:1;transform:translateY(-50%) translateX(0)}
+  .story-egg:hover .ring{filter:drop-shadow(0 0 16px rgba(255,138,43,.55));animation-play-state:running}
+  /* press wins over hover lift (same specificity as the :hover rules, declared last) */
+  .btn:hover:active{transform:translateY(0) scale(.97)}
+  /* .t-tilt tilt/glare NOT here — JS mousemove-driven; its :hover override in the tilt section
+     out-specifies .card.interactive:hover above, so the lift never fights the rotate. */
+}
 
 /* ============================================================
    Responsive
    ============================================================ */
 @media (max-width:900px){
   .about-grid,.proj-grid,.edu-grid{grid-template-columns:1fr!important}
+  .ledger-row{grid-template-columns:1fr;gap:14px}
   .nav-toggle{display:flex}
   .nav-cta{display:none}
-  /* Mobile dropdown panel — hidden until .nav.open. Anchored to the sticky nav's bottom edge. */
-  .nav-center{position:absolute;top:calc(100% + 6px);right:clamp(20px,5vw,44px);left:clamp(20px,5vw,44px);transform:none;
+  /* Mobile dropdown panel — always laid out; hidden via opacity/visibility/scale so it transitions open. Grows from top-center. */
+  .nav-center{position:absolute;top:calc(100% + 6px);right:clamp(20px,5vw,44px);left:clamp(20px,5vw,44px);
     flex-direction:column;align-items:stretch;gap:0;
     padding:8px;border-radius:var(--radius-md);background:rgba(6,7,10,.92);box-shadow:inset 0 0 0 1px var(--border-strong),var(--shadow-lg);
-    backdrop-filter:var(--blur-nav);-webkit-backdrop-filter:var(--blur-nav);display:none}
-  .nav.open .nav-center{display:flex}
+    backdrop-filter:var(--blur-nav);-webkit-backdrop-filter:var(--blur-nav);
+    transform-origin:top center;transform:scale(.97) translateY(-6px);opacity:0;visibility:hidden;pointer-events:none;
+    transition:opacity var(--dur-base) var(--ease-out),transform var(--dur-base) var(--ease-out),visibility 0s var(--dur-base)}
+  .nav.open .nav-center{transform:none;opacity:1;visibility:visible;pointer-events:auto;
+    transition:opacity var(--dur-base) var(--ease-out),transform var(--dur-base) var(--ease-out),visibility 0s}
+  .nav-pill{display:none}
   .nav-center .nav-link{padding:12px 14px;border-radius:var(--radius-sm);font-size:16px}
   .nav-center .nav-link::after{display:none}
   .story-egg{right:14px;bottom:14px;width:48px;height:48px}
@@ -431,6 +505,11 @@ img,svg{max-width:100%}
   html{scroll-behavior:auto}
   .reveal{opacity:1;transform:none;transition:none}
   .skills-col .card.reveal{transform:none;transition:none}
-  .lang-fill{width:var(--w)} /* bars appear already filled, no fill animation */
+  .lang-fill{transform:none;transition:none} /* bars appear already filled, no fill animation */
   .hero-aurora{transition:none}
+  .hero-rise{opacity:1;transform:none;filter:none;transition:none}
+  .nav-pill,.nav-center{transition:none}
+  .t-tilt .card.interactive{transform:none!important;transition:box-shadow var(--dur-base) var(--ease-out)}
+  .t-tilt-glare{display:none}
+  .proj-list.deck-on .t-tilt{transition:none} /* deck jumps instantly, stays functional */
 }

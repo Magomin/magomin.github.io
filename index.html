@@ -5,9 +5,21 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Matthieu Dominguez — Business × Tech Builder</title>
 <meta name="description" content="Matthieu Dominguez — Business × Tech Builder. I set up the outbound, automate the boring parts and build the product that take companies from nothing to their first paying clients.">
+<link rel="icon" type="image/svg+xml" href="media/favicon.svg">
+<meta name="theme-color" content="#06070a">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://matdomi.com/">
+<meta property="og:title" content="Matthieu Dominguez — Business × Tech Builder">
+<meta property="og:description" content="Matthieu Dominguez — Business × Tech Builder. I set up the outbound, automate the boring parts and build the product that take companies from nothing to their first paying clients.">
+<meta property="og:image" content="https://matdomi.com/media/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Matthieu Dominguez — Business × Tech Builder">
+<meta name="twitter:description" content="Matthieu Dominguez — Business × Tech Builder. I set up the outbound, automate the boring parts and build the product that take companies from nothing to their first paying clients.">
 <link rel="stylesheet" href="styles.css">
-<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
-<noscript><style>.reveal{opacity:1!important;transform:none!important}</style></noscript>
+<script src="https://unpkg.com/lucide@1.24.0/dist/umd/lucide.min.js"></script>
+<noscript><style>.reveal{opacity:1!important;transform:none!important}.hero-rise{opacity:1!important;transform:none!important;filter:none!important}</style></noscript>
 </head>
 <body>
 
@@ -18,6 +30,7 @@
   <div class="nav-inner">
     <a href="#top" class="nav-brand">Matthieu D.</a>
     <div class="nav-center" id="nav-center">
+      <span class="nav-pill" aria-hidden="true"></span>
       <a class="nav-link" href="#about">About</a>
       <a class="nav-link" href="#work">Work</a>
       <a class="nav-link" href="#projects">Projects</a>
@@ -38,10 +51,10 @@
     <div class="hero-aurora" aria-hidden="true"></div>
 
     <div class="hero-inner">
-      <span class="hero-badge"><span class="pulse" aria-hidden="true"></span>Available for select work · Madrid / Remote</span>
-      <h1>Turning zero<br>into one</h1>
-      <p class="hero-sub">Business × tech builder. I set up the outbound, automate the boring parts and build the product — learning whatever it takes to get a company from nothing to its first clients.</p>
-      <div class="hero-cta">
+      <span class="hero-badge hero-rise hero-rise--1"><span class="pulse" aria-hidden="true"></span>Available for select work · Madrid / Remote</span>
+      <h1 class="hero-rise hero-rise--2">Turning zero<br>into one</h1>
+      <p class="hero-sub hero-rise hero-rise--3">Business × tech builder. I set up the outbound, automate the boring parts and build the product — learning whatever it takes to get a company from nothing to its first clients.</p>
+      <div class="hero-cta hero-rise hero-rise--4">
         <a class="btn btn--primary btn--lg btn--grain" href="#contact"><span class="btn-shader" aria-hidden="true"></span><span class="btn-label">Get in touch</span></a>
         <a class="btn btn--ghost btn--lg" href="#projects">See my work <i data-lucide="arrow-down"></i></a>
       </div>
@@ -68,6 +81,11 @@
       </div>
     </div>
   </header>
+
+  <!-- Hero → About wave divider -->
+  <svg class="hero-divider" aria-hidden="true" viewBox="0 0 1440 70" preserveAspectRatio="none">
+    <path d="M0,42 C240,8 480,8 720,30 C960,52 1200,52 1440,26 L1440,70 L0,70 Z"/>
+  </svg>
 
   <!-- About -->
   <section id="about" class="section">
@@ -153,82 +171,44 @@
   <section id="work" class="section">
     <div class="container">
       <div class="section-heading reveal">
-        <span class="eyebrow">Career</span>
         <h2>My professional experience</h2>
         <p class="subtitle">Four years across B2B startups in France, Spain and the US — growth, business development and product. One throughline: taking things from zero to traction.</p>
       </div>
 
-      <div class="timeline">
-        <div class="tl-item reveal">
-          <div class="tl-rail"><span class="tl-dot current" aria-hidden="true"></span><span class="tl-line" aria-hidden="true"></span></div>
-          <div class="tl-body">
-            <article class="card interactive glow-amber">
-              <div class="exp-top">
-                <div>
-                  <div class="exp-role">
-                    <h3>Growth &amp; Product Specialist</h3>
-                    <span class="badge tone-success"><span class="bdot" aria-hidden="true"></span>Current</span>
-                  </div>
-                  <div class="exp-company">Fribl <span class="place">· Cannes (Remote)</span></div>
-                </div>
-                <span class="exp-period">May 2024 — Present</span>
-              </div>
-              <ul class="exp-points">
-                <li><i data-lucide="check"></i><span>Built Fribl's outbound function from zero (0 clients on arrival): landed the first paying accounts — the hardest — including EDHEC, and won at the Young Festival of Cannes 2025.</span></li>
-                <li><i data-lucide="check"></i><span>Scaled prospecting to ~2 qualified meetings/week, peaking at 10/month — a company record.</span></li>
-                <li><i data-lucide="check"></i><span>Conceived and built “Fribl Outbound”, an internal prospecting platform: LinkedIn + email sequences, CRM, unified inbox, Bayesian A/B testing, dashboard and AI auto-optimization — replacing a fragmented tool stack. Built end-to-end in ~2 months (TypeScript, Next.js, PostgreSQL) and adopted by the team.</span></li>
-                <li><i data-lucide="check"></i><span>Set up the entire cold-email infrastructure from scratch — Mailgun subdomain, DKIM/SPF/DMARC, deliverability — self-taught.</span></li>
-                <li><i data-lucide="check"></i><span>Owned Customer Success since Feb 2025: tracked API consumption, monitored account health and coordinated check-in calls.</span></li>
-                <li><i data-lucide="check"></i><span>Produced the homepage product tutorial video (motion design, After Effects) and LinkedIn visual content.</span></li>
-              </ul>
-              <div class="exp-stack">
-                <span class="tag">TypeScript</span><span class="tag">Next.js</span><span class="tag">PostgreSQL</span><span class="tag">Mailgun</span><span class="tag">HubSpot</span><span class="tag">After Effects</span>
-              </div>
-            </article>
+      <div class="ledger">
+        <article class="ledger-row reveal">
+          <div class="ledger-side">
+            <div class="ledger-period">May 2024 — Present</div>
+            <div class="ledger-company">Fribl</div>
+            <div class="ledger-place">Cannes · Remote</div>
           </div>
-        </div>
-
-        <div class="tl-item reveal">
-          <div class="tl-rail"><span class="tl-dot" aria-hidden="true"></span><span class="tl-line" aria-hidden="true"></span></div>
-          <div class="tl-body">
-            <article class="card interactive glow-amber">
-              <div class="exp-top">
-                <div>
-                  <div class="exp-role"><h3>Business Developer</h3></div>
-                  <div class="exp-company">MyDataMachine <span class="place">· Paris, France</span></div>
-                </div>
-                <span class="exp-period">Oct 2022 — Jun 2023</span>
-              </div>
-              <ul class="exp-points">
-                <li><i data-lucide="check"></i><span>Generated and qualified leads across FR / ES / UK — €350k in pipeline (€200k signed), beating lead targets by +233%.</span></li>
-              </ul>
-              <div class="exp-stack">
-                <span class="tag">Prospecting</span><span class="tag">Qualification</span><span class="tag">Negotiation</span>
-              </div>
-            </article>
+          <div class="ledger-main">
+            <h3>Growth &amp; Product Specialist</h3>
+            <p class="ledger-prose">Built Fribl’s outbound from zero — landing the first paying accounts (including <span class="hi-w">EDHEC</span>) and winning the Young Festival of Cannes 2025. Scaled prospecting to a record <span class="hi">10 meetings/month</span>, then conceived and shipped Fribl Outbound, an internal prospecting platform — sequences, CRM, unified inbox, Bayesian A/B testing and AI auto-optimization — built end-to-end in <span class="hi">~2 months</span> on TypeScript, Next.js and PostgreSQL. Along the way I stood up the full cold-email infrastructure (Mailgun, DKIM/SPF/DMARC), owned Customer Success, and produced the homepage motion-design tutorial.</p>
           </div>
-        </div>
-
-        <div class="tl-item reveal">
-          <div class="tl-rail"><span class="tl-dot" aria-hidden="true"></span></div>
-          <div class="tl-body">
-            <article class="card interactive glow-amber">
-              <div class="exp-top">
-                <div>
-                  <div class="exp-role"><h3>Marketing Growth Operator</h3></div>
-                  <div class="exp-company">Propulse Video <span class="place">· Barcelona, Spain</span></div>
-                </div>
-                <span class="exp-period">Oct 2021 — May 2022</span>
-              </div>
-              <ul class="exp-points">
-                <li><i data-lucide="check"></i><span>Grew inbound leads +50% via SEO and a full WordPress site redesign.</span></li>
-              </ul>
-              <div class="exp-stack">
-                <span class="tag">SEO</span><span class="tag">WordPress</span><span class="tag">Content</span>
-              </div>
-            </article>
+        </article>
+        <article class="ledger-row reveal">
+          <div class="ledger-side">
+            <div class="ledger-period">Oct 2022 — Jun 2023</div>
+            <div class="ledger-company">MyDataMachine</div>
+            <div class="ledger-place">Paris, France</div>
           </div>
-        </div>
+          <div class="ledger-main">
+            <h3>Business Developer</h3>
+            <p class="ledger-prose">Generated and qualified leads across France, Spain and the UK — <span class="hi">€350k</span> in pipeline (€200k signed), beating lead targets by <span class="hi">+233%</span>.</p>
+          </div>
+        </article>
+        <article class="ledger-row reveal">
+          <div class="ledger-side">
+            <div class="ledger-period">Oct 2021 — May 2022</div>
+            <div class="ledger-company">Propulse Video</div>
+            <div class="ledger-place">Barcelona, Spain</div>
+          </div>
+          <div class="ledger-main">
+            <h3>Marketing Growth Operator</h3>
+            <p class="ledger-prose">Grew inbound leads <span class="hi">+50%</span> through SEO and a full WordPress site redesign.</p>
+          </div>
+        </article>
       </div>
 
       <div class="edu-grid">
@@ -301,6 +281,7 @@
       </div>
 
       <div class="proj-list">
+        <div class="t-tilt">
         <article class="card interactive glow-amber feature reveal">
             <a class="proj-cover" href="https://konklue.com" target="_blank" rel="noopener" aria-label="Visit konklue.com"></a>
             <div class="proj-media">
@@ -320,9 +301,12 @@
               <span class="tag">Marketplace</span><span class="tag">AI Contracts</span><span class="tag">Escrow</span><span class="tag">Launched Jun 2026</span>
             </div>
             <div class="proj-url"><i data-lucide="link"></i>konklue.com</div>
+            <div class="t-tilt-glare" aria-hidden="true"></div>
         </article>
+        </div>
 
         <div class="proj-grid">
+          <div class="t-tilt">
           <article class="card interactive glow-blue reveal">
             <div class="proj-media">
               <video src="media/fribl-outbound.mp4" muted loop autoplay playsinline preload="metadata"></video>
@@ -341,8 +325,11 @@
               <span class="tag">TypeScript</span><span class="tag">Next.js</span><span class="tag">PostgreSQL</span><span class="tag">AI</span>
             </div>
             <div class="proj-url"><i data-lucide="link"></i>internal platform</div>
+            <div class="t-tilt-glare" aria-hidden="true"></div>
           </article>
+          </div>
 
+          <div class="t-tilt">
           <article class="card interactive glow-blue reveal">
             <div class="proj-media proj-media--contain proj-media--branded">
               <img src="media/hexband.png" alt="Hexband brand system — resistance bands, pouch, diet guide and packaging I designed" loading="lazy">
@@ -362,8 +349,21 @@
               <span class="tag">Amazon</span><span class="tag">Brand</span><span class="tag">Art Direction</span><span class="tag">500 units</span>
             </div>
             <div class="proj-url"><i data-lucide="link"></i>D2C fitness</div>
+            <div class="t-tilt-glare" aria-hidden="true"></div>
           </article>
+          </div>
         </div>
+      </div>
+
+      <!-- Deck controls (desktop only; JS reveals them by enabling the deck) -->
+      <div class="deck-nav">
+        <button class="deck-arrow" type="button" data-dir="-1" aria-label="Previous project"><i data-lucide="chevron-left"></i></button>
+        <div class="deck-dots" aria-label="Choose project">
+          <button class="deck-dot" type="button" aria-label="Konklue"></button>
+          <button class="deck-dot" type="button" aria-label="Fribl Outbound"></button>
+          <button class="deck-dot" type="button" aria-label="Hexband"></button>
+        </div>
+        <button class="deck-arrow" type="button" data-dir="1" aria-label="Next project"><i data-lucide="chevron-right"></i></button>
       </div>
     </div>
   </section>
