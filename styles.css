@@ -158,6 +158,8 @@ img,svg{max-width:100%}
   box-shadow:inset 0 0 0 1px var(--border-strong),0 20px 46px rgba(0,0,0,.55);
   display:flex;flex-direction:column;gap:2px}
 .cv-dl--up .cv-dl-menu{top:auto;bottom:calc(100% + 8px)}
+.cv-dl--nav .cv-dl-menu{left:auto;right:0;transform:none}
+.nav-actions{display:flex;align-items:center;gap:10px}
 .cv-dl-menu a{display:flex;align-items:center;gap:11px;padding:10px 13px;border-radius:9px;
   font-family:var(--font-display);font-size:14.5px;color:var(--text-1);white-space:nowrap;
   transition:background var(--dur-fast) var(--ease-out)}
@@ -502,7 +504,7 @@ img,svg{max-width:100%}
   .about-grid,.proj-grid,.edu-grid{grid-template-columns:1fr!important}
   .ledger-row{grid-template-columns:1fr;gap:14px}
   .nav-toggle{display:flex}
-  .nav-cta{display:none}
+  .nav-cta,.cv-dl--nav{display:none}
   /* Mobile dropdown panel — always laid out; hidden via opacity/visibility/scale so it transitions open. Grows from top-center. */
   .nav-center{position:absolute;top:calc(100% + 6px);right:clamp(20px,5vw,44px);left:clamp(20px,5vw,44px);
     flex-direction:column;align-items:stretch;gap:0;

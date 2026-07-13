@@ -36,12 +36,22 @@
       <a class="nav-link" href="#projects">Projects</a>
       <a class="nav-link" href="#contact">Contact</a>
     </div>
-    <a class="btn btn--primary btn--sm nav-cta btn--grain" href="#contact"><span class="btn-shader" aria-hidden="true"></span><span class="btn-label">Get in touch</span></a>
-    <button class="nav-toggle" type="button" aria-label="Menu" aria-expanded="false" aria-controls="nav-center">
-      <span class="nav-toggle-bar" aria-hidden="true"></span>
-      <span class="nav-toggle-bar" aria-hidden="true"></span>
-      <span class="nav-toggle-bar" aria-hidden="true"></span>
-    </button>
+    <div class="nav-actions">
+      <details class="cv-dl cv-dl--nav">
+        <summary class="btn btn--secondary btn--sm"><i data-lucide="download"></i><span class="btn-label">Download CV</span><i data-lucide="chevron-down" class="cv-dl-caret"></i></summary>
+        <div class="cv-dl-menu" role="menu" aria-label="Choose CV language">
+          <a role="menuitem" href="cv/matthieu-dominguez-cv-en.pdf" download="Matthieu Dominguez - CV (EN).pdf"><span class="cv-dl-lang">EN</span>English</a>
+          <a role="menuitem" href="cv/matthieu-dominguez-cv-es.pdf" download="Matthieu Dominguez - CV (ES).pdf"><span class="cv-dl-lang">ES</span>Español</a>
+          <a role="menuitem" href="cv/matthieu-dominguez-cv-fr.pdf" download="Matthieu Dominguez - CV (FR).pdf"><span class="cv-dl-lang">FR</span>Français</a>
+        </div>
+      </details>
+      <a class="btn btn--primary btn--sm nav-cta btn--grain" href="#contact"><span class="btn-shader" aria-hidden="true"></span><span class="btn-label">Get in touch</span></a>
+      <button class="nav-toggle" type="button" aria-label="Menu" aria-expanded="false" aria-controls="nav-center">
+        <span class="nav-toggle-bar" aria-hidden="true"></span>
+        <span class="nav-toggle-bar" aria-hidden="true"></span>
+        <span class="nav-toggle-bar" aria-hidden="true"></span>
+      </button>
+    </div>
   </div>
 </nav>
 
