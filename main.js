@@ -367,6 +367,11 @@
           s.setAttribute("data-pos", pos);
           s.classList.toggle("is-active", pos === 0);
           s.classList.toggle("is-behind", pos !== 0);
+          // PERF: only the front card's video decodes. Behind cards sit under a
+          // brightness filter — compositing a *playing* video through it every frame
+          // is what janks the switch. Pause them; play resumes on becoming active.
+          var v = s.querySelector("video");
+          if (v) { if (pos === 0) v.play().catch(function () {}); else v.pause(); }
         });
         deckDots.forEach(function (d, i) {
           d.setAttribute("aria-current", i === deckActive ? "true" : "false");
@@ -407,6 +412,8 @@
           deckSlides.forEach(function (s) {
             s.removeAttribute("data-pos");
             s.classList.remove("is-active", "is-behind");
+            var v = s.querySelector("video");   // deck off (mobile grid): resume native autoplay
+            if (v) v.play().catch(function () {});
           });
         }
       }
