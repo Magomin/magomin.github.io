@@ -349,7 +349,8 @@ img,svg{max-width:100%}
   .proj-list.deck-on .t-tilt[data-pos="0"]{transform:translateX(-50%);filter:none;z-index:3}
   /* behind cards fanned right — pushed back, rotated, dimmed; slivers stay ≥70px on screen */
   .proj-list.deck-on .t-tilt[data-pos="1"]{transform:translateX(calc(-50% + 160px)) translateY(12px) translateZ(-140px) rotateY(-7deg) scale(.94);filter:brightness(.65);z-index:2}
-  .proj-list.deck-on .t-tilt[data-pos="2"]{transform:translateX(calc(-50% + 330px)) translateY(24px) translateZ(-280px) rotateY(-9deg) scale(.88);filter:brightness(.45);z-index:1}
+  .proj-list.deck-on .t-tilt[data-pos="2"]{transform:translateX(calc(-50% + 300px)) translateY(24px) translateZ(-280px) rotateY(-9deg) scale(.88);filter:brightness(.45);z-index:1}
+  .proj-list.deck-on .t-tilt[data-pos="3"]{transform:translateX(calc(-50% + 430px)) translateY(36px) translateZ(-400px) rotateY(-11deg) scale(.82);filter:brightness(.3);z-index:0}
   /* separation shadow on the front card */
   .proj-list.deck-on .t-tilt.is-active .card{box-shadow:var(--ring-inset),-30px 40px 80px rgba(0,0,0,.6)}
   /* behind cards: tilt off (front card keeps it), glare off, cover link inert, click brings front */
