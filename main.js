@@ -581,4 +581,16 @@
       }, { speed: 2.2, hoverEl: host.closest(".btn--grain") }); // runs only while the button is hovered
     }
   } catch (e) { /* shader is decorative */ }
+
+  /* ---- CV download dropdown: close on outside click, Esc, or after picking ---- */
+  document.addEventListener("click", function (e) {
+    var inMenu = e.target.closest(".cv-dl-menu");
+    document.querySelectorAll(".cv-dl[open]").forEach(function (d) {
+      // close if the click landed outside this <details>, or on one of its download links
+      if (!d.contains(e.target) || (inMenu && d.contains(inMenu))) d.removeAttribute("open");
+    });
+  });
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape") document.querySelectorAll(".cv-dl[open]").forEach(function (d) { d.removeAttribute("open"); });
+  });
 })();
