@@ -125,7 +125,7 @@ img,svg{max-width:100%}
    Hero + Aurora
    ============================================================ */
 .hero{position:relative;overflow:hidden;padding-top:clamp(150px,17vw,208px);padding-bottom:0}
-.hero-aurora{position:absolute;inset:0;z-index:0;transform:scale(1.08)}
+.hero-aurora{position:absolute;inset:0;z-index:0;transform:scale(1.08);-webkit-mask-image:linear-gradient(to bottom,#000 72%,transparent);mask-image:linear-gradient(to bottom,#000 72%,transparent)}
 /* Aurora rays react to the cursor (JS sets opacity/transform per ray). Smooth so it reads as flowing light. */
 /* Outer wrap: smooth mouse-boost (brightness + come-forward). Inner: dances on its own via raySway. */
 .aurora-ray{transition:filter .25s var(--ease-out),transform .28s var(--ease-out)}
@@ -392,11 +392,6 @@ img,svg{max-width:100%}
   background:rgba(255,255,255,.18);
   transition:background var(--dur-fast) var(--ease-out),box-shadow var(--dur-fast) var(--ease-out)}
 .deck-dot[aria-current="true"]{background:var(--amber);box-shadow:0 0 8px rgba(255,138,43,.7)}
-
-/* ============================================================
-   Hero → About divider (subtle wave band)
-   ============================================================ */
-.hero-divider{display:block;width:100%;height:clamp(40px,6vw,70px);fill:var(--ink-800)}
 
 /* ============================================================
    Contact
